@@ -46,9 +46,7 @@ def main():
 
         print("You should use integers for each of the above", file=sys.stderr)
 
-    hawkNum = (hawkPercent * sizePopulation) // 100
 
-    doveNum = sizePopulation - hawkNum
 
 
 if __name__ == "__main__":
