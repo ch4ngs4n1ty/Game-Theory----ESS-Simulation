@@ -57,6 +57,13 @@ class Simulation:
 
                 self.individualDisplay()
 
+            if itemInput == 6:
+
+                nInput = int(input("Number of interactions: "))
+
+                self.interactSimulate(nInput)
+
+
     def statDisplay(self):
 
         print(f"Population size: {self.sizePopulation}")
@@ -84,6 +91,92 @@ class Simulation:
 
         print(f"Living: {livingList}")
 
+
+    def interactSimulate(self, n:int):
+
+            livingList = []
+
+            for individual in self.individualList:
+
+                if individual.getStatus():
+                    livingList.append(individual)
+
+
+            for i in range(n):
+
+                individualOne, individualTwo = random.sample(livingList, 2)
+
+                amountOne, amountTwo = self.simulationLogic(individualOne, individualTwo)
+
+                print(f"{amountOne} and {amountTwo}")
+
+                print(f"Encounter: {i + 1}")
+
+                print(f"Individual {individualOne.getId()}: {individualOne.getStrategy()}")
+
+                print(f"Individual {individualTwo.getId()}: {individualTwo.getStrategy()}")
+
+                print(f"{individualOne.getStrategy()}/{individualTwo.getStrategy()}: {amountOne:+}      {individualTwo.getStrategy()}: {amountTwo:+}")
+
+                if not individualOne.getStatus():
+
+                    print(f"{individualOne.getStrategy()} one has died!")
+
+                if not individualTwo.getStatus():
+
+                    print(f"{individualTwo.getStrategy()} two has died!")
+
+                print(f"Individual {individualOne.getId()}={individualOne.getResource()}      Individual {individualTwo.getId()}={individualTwo.getResource()}")
+
+                print()
+
+    def simulationLogic(self, indOne:Individual, indTwo:Individual):
+
+        if indOne.getStrategy() == "Dove" and indTwo.getStrategy() == "Dove":
+
+            getAmount = self.resourceAmount // 2
+
+            amountOne = amountTwo = getAmount
+
+            indOne.addResource(amountOne)
+            indTwo.addResource(amountTwo)
+
+            return amountOne, amountTwo
+
+        if (indOne.getStrategy() == "Hawk" and indTwo.getStrategy() == "Dove"):
+
+            amountOne = self.resourceAmount
+            amountTwo = 0
+
+            indOne.addResource(amountOne)
+            indTwo.addResource(amountTwo)
+
+            return amountOne, amountTwo
+
+        elif (indOne.getStrategy() == "Dove" and indTwo.getStrategy() == "Hawk"):
+
+            amountOne = 0
+            amountTwo = self.resourceAmount
+
+            indOne.addResource(amountOne)
+            indTwo.addResource(amountTwo)
+
+            return amountOne, amountTwo
+
+        if indOne.getStrategy() == "Hawk" and indTwo.getStrategy() == "Hawk":
+
+            amountOne = self.resourceAmount - self.hawkCost
+
+            indOne.addResource(amountOne)
+
+            amountTwo = self.hawkCost
+
+            indTwo.subtractResource(amountTwo)
+
+            return amountOne, amountTwo
+
+
+        return 0, 0
 
 
 
