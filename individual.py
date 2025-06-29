@@ -40,6 +40,6 @@ class Individual:
 
     def __str__(self):
 
-        if not self.alive:
+        if not self.status:
             return f"Individual[{self.id}]=DEAD:{self.resource}"
         return f"Individual[{self.id}]={self.strategy}:{self.resource}"

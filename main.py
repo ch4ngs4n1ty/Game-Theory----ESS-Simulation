@@ -19,7 +19,7 @@ def main():
             print("Usage: ./project02 popSize [percentHawks] [resourceAmt] [costHawk-Hawk]", file=sys.stderr)
             sys.exit(1)
 
-        if len(args) > 2:
+        if len(args) > 1:
 
             # percentage of Hawks
             hawkPercent = int(args[1])
@@ -28,7 +28,7 @@ def main():
 
             hawkPercent = 20
 
-        if len(args) > 3:
+        if len(args) > 2:
 
             # resource amount
             resourceAmount = int(args[2])
@@ -37,7 +37,7 @@ def main():
 
             resourceAmount = 50
 
-        if len(args) > 4:
+        if len(args) > 3:
 
             # hawk-hawk interaction cost
             hawkCost = int(args[3])

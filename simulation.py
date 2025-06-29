@@ -15,9 +15,9 @@ class Simulation:
         self.hawkNum = (hawkPercent * sizePopulation) // 100
         self.doveNum = sizePopulation - self.hawkNum
 
-        self.individualList = self.individualList()
+        self.individualList = self.build_individualList()
 
-    def individualList(self):
+    def build_individualList(self):
 
         individual = []
 
@@ -47,11 +47,15 @@ class Simulation:
             print("8 ) Quit")
             print("================================")
 
-            inputNum = int(input(">"))
+            itemInput = int(input("> "))
 
-            if inputNum == 1:
+            if itemInput == 1:
 
                 self.statDisplay()
+
+            if itemInput == 2:
+
+                self.individualDisplay()
 
     def statDisplay(self):
 
@@ -65,9 +69,20 @@ class Simulation:
         print(f"Each resource is worth: {self.resourceAmount}")
         print(f"Cost of Hawk-Hawk interaction: {self.hawkCost}")
 
+    def individualDisplay(self):
 
+        livingList = 0
 
+        for individual in self.individualList:
 
+            if individual.getStatus():
+                livingList += 1
+                print(f"Individual[{individual.getId()}]={individual.getStrategy()}:{individual.getResource()}")
+
+            else:
+                print(f"Individual[{individual.getId()}]=DEAD:{individual.getResource()}")
+
+        print(f"Living: {livingList}")
 
 
 
