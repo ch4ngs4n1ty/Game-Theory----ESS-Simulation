@@ -32,20 +32,41 @@ class Simulation:
 
         return individual
 
-
-
     def menu(self):
 
-        print("===============MENU=============\n")
-        print("1 ) Starting Stats\n")
-        print("2 ) Display Individuals and Points\n")
-        print("3 ) Display Sorted\n")
-        print("4 ) Have 1000 interactions\n")
-        print("5 ) Have 10000 interactions\n")
-        print("6 ) Have N interactions\n")
-        print("7 ) Step through interactions " + "Stop" + " to return to menu\n")
-        print("8 ) Quit\n")
-        print("================================\n")
+        while True:
+
+            print("===============MENU=============")
+            print("1 ) Starting Stats")
+            print("2 ) Display Individuals and Points")
+            print("3 ) Display Sorted")
+            print("4 ) Have 1000 interactions")
+            print("5 ) Have 10000 interactions")
+            print("6 ) Have N interactions")
+            print("7 ) Step through interactions " + "Stop" + " to return to menu")
+            print("8 ) Quit")
+            print("================================")
+
+            inputNum = int(input(">"))
+
+            if inputNum == 1:
+
+                self.statDisplay()
+
+    def statDisplay(self):
+
+        print(f"Population size: {self.sizePopulation}")
+        print(f"Percentage of Hawks: {self.hawkPercent}%")
+        print(f"Number of Hawks: {self.hawkNum}")
+        print()
+        print(f"Percentage of Doves: {(self.doveNum / self.sizePopulation) * 100:.0f}%")
+        print(f"Number of Doves: {self.doveNum}")
+        print()
+        print(f"Each resource is worth: {self.resourceAmount}")
+        print(f"Cost of Hawk-Hawk interaction: {self.hawkCost}")
+
+
+
 
 
 
