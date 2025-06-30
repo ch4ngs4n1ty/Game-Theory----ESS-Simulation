@@ -25,13 +25,14 @@ class Individual:
 
         self.resource += amount
 
-    def subtractResource(self, amount:int):
-
-        self.resource -= amount
-
         if self.resource < 0:
 
             self.status = False
+
+
+    def subtractResource(self, amount:int):
+
+        self.resource -= amount
 
 
     def getStatus(self):

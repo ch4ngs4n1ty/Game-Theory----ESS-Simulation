@@ -44,7 +44,7 @@ def main():
 
         else:
 
-            hawkCost =  10
+            hawkCost = 10
 
         # size of individuals in total population
         sizePopulation = int(args[0])

@@ -1,7 +1,6 @@
 from individual import Individual
 import random
 
-
 class Simulation:
 
     def __init__(self, sizePopulation:int, hawkPercent:int, resourceAmount:int, hawkCost:int):
@@ -22,7 +21,6 @@ class Simulation:
         individual = []
 
         # Constructor for Individual class is ((self, id:int, strategy:str, resource:int = 0, status:bool = True)
-
         for i in range(self.sizePopulation):
 
             if i < self.hawkNum:
@@ -57,11 +55,27 @@ class Simulation:
 
                 self.individualDisplay()
 
+            if itemInput == 3:
+
+                self.sortedByResources()
+
+            if itemInput == 4:
+
+                self.interactSimulate(1000)
+
+            if itemInput == 5:
+
+                self.interactSimulate(10000)
+
             if itemInput == 6:
 
                 nInput = int(input("Number of interactions: "))
 
                 self.interactSimulate(nInput)
+
+            if itemInput == 7:
+
+                self.interactSimulateStep()
 
 
     def statDisplay(self):
@@ -91,18 +105,36 @@ class Simulation:
 
         print(f"Living: {livingList}")
 
+    def sortedByResources(self):
+
+        sortedResource = sorted(self.individualList, key=lambda individual: individual.getResource(), reverse=True)
+
+        for individual in sortedResource:
+
+            if individual.getStatus():
+
+                print(f"{individual.getStrategy()}:{individual.getResource()}")
+
+            else:
+
+                print(f"Individual[{individual.getId()}]=DEAD:{individual.getResource()}")
 
     def interactSimulate(self, n:int):
 
-            livingList = []
-
-            for individual in self.individualList:
-
-                if individual.getStatus():
-                    livingList.append(individual)
-
-
             for i in range(n):
+
+                livingList = []
+
+                for individual in self.individualList:
+
+                    if individual.getStatus():
+                        livingList.append(individual)
+
+                if len(livingList) < 2:
+
+                    print("Not enough living individuals")
+
+                    break
 
                 individualOne, individualTwo = random.sample(livingList, 2)
 
@@ -169,14 +201,68 @@ class Simulation:
 
             indOne.addResource(amountOne)
 
-            amountTwo = self.hawkCost
+            amountTwo = -self.hawkCost
 
-            indTwo.subtractResource(amountTwo)
+            indTwo.addResource(amountTwo)
 
             return amountOne, amountTwo
 
-
         return 0, 0
 
+    def interactSimulateStep(self):
+
+        i = 0
+
+        while True:
+
+            i += 1
+
+            livingList = []
+
+            for individual in self.individualList:
+
+                if individual.getStatus():
+
+                    livingList.append(individual)
+
+            if len(livingList) < 2:
+
+                print("Not enough living individuals")
+
+                break
+
+            individualOne, individualTwo = random.sample(livingList, 2)
+
+            amountOne, amountTwo = self.simulationLogic(individualOne, individualTwo)
+
+            print(f"{amountOne} and {amountTwo}")
+
+            print(f"Encounter: {i}")
+
+            print(f"Individual {individualOne.getId()}: {individualOne.getStrategy()}")
+
+            print(f"Individual {individualTwo.getId()}: {individualTwo.getStrategy()}")
+
+            print(f"{individualOne.getStrategy()}/{individualTwo.getStrategy()}: {amountOne:+}      {individualTwo.getStrategy()}: {amountTwo:+}")
+
+            if not individualOne.getStatus():
+
+                print(f"{individualOne.getStrategy()} one has died!")
+
+            if not individualTwo.getStatus():
+
+                print(f"{individualTwo.getStrategy()} two has died!")
+
+            print(
+
+                f"Individual {individualOne.getId()}={individualOne.getResource()}      Individual {individualTwo.getId()}={individualTwo.getResource()}")
+
+            print()
+
+            userInput = input("Press Enter for next step or type stop to return to menu: ").strip().lower()
+
+            if userInput == "stop":
+
+                break
 
 
