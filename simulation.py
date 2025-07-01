@@ -1,5 +1,6 @@
 from individual import Individual
 import random
+import sys
 
 class Simulation:
 
@@ -45,7 +46,15 @@ class Simulation:
             print("8 ) Quit")
             print("================================")
 
-            itemInput = int(input("> "))
+            try:
+
+                itemInput = int(input("> "))
+
+            except ValueError:
+
+                print("Please enter an integer. Not a string.")
+
+                continue
 
             if itemInput == 1:
 
@@ -77,6 +86,13 @@ class Simulation:
 
                 self.interactSimulateStep()
 
+            if itemInput == 8:
+
+                sys.exit()
+
+            else:
+
+                print("Please choose number from 1 to 8.")
 
     def statDisplay(self):
 
@@ -140,7 +156,7 @@ class Simulation:
 
                 amountOne, amountTwo = self.simulationLogic(individualOne, individualTwo)
 
-                print(f"{amountOne} and {amountTwo}")
+                #print(f"{amountOne} and {amountTwo}")
 
                 print(f"Encounter: {i + 1}")
 
@@ -235,7 +251,7 @@ class Simulation:
 
             amountOne, amountTwo = self.simulationLogic(individualOne, individualTwo)
 
-            print(f"{amountOne} and {amountTwo}")
+            #print(f"{amountOne} and {amountTwo}")
 
             print(f"Encounter: {i}")
 

@@ -29,18 +29,10 @@ class Individual:
 
             self.status = False
 
-
     def subtractResource(self, amount:int):
 
         self.resource -= amount
 
-
     def getStatus(self):
 
         return self.status
-
-    def __str__(self):
-
-        if not self.status:
-            return f"Individual[{self.id}]=DEAD:{self.resource}"
-        return f"Individual[{self.id}]={self.strategy}:{self.resource}"
